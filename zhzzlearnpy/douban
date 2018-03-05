@@ -1,0 +1,64 @@
+import requests
+from bs4 import BeautifulSoup
+import time
+import urllib
+import os
+
+
+headers = {
+    'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 BIDUBrowser/8.7 Safari/537.36',
+    'Cookie':'__utmt=1; __utma=81379588.292354748.1490268308.1490605522.1490610588.5; __utmb=81379588.1.10.1490610588; __utmc=81379588; __utmz=81379588.1490603404.3.3.utmcsr=baidu|utmccn=(organic)|utmcmd=organic|utmctr=%E8%B1%86%E7%93%A3; ll="108309"; bid=Lca1RNgIRiY; viewed="26284925"; ps=y; dbcl2="136865962:xh/9+e+2kqk"; ck=c48h; push_noty_num=0; push_doumail_num=0; __utmt_douban=1; __utma=30149280.1163315445.1490003408.1490605522.1490610565.7; __utmb=30149280.1.10.1490610565; __utmc=30149280; __utmz=30149280.1490603130.5.5.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; ap=1'
+}
+url = 'https://book.douban.com/tag/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%AD%A6'
+
+def getpinlun(url):
+    urls = geturl(url)
+    for url in urls:
+        time.sleep(1)
+        wbdata = requests.get(url,headers=headers)
+        soup = BeautifulSoup(wbdata.text,'lxml')
+        title =  soup.title.text,
+        img = soup.select('#mainpic > a > img')
+        authors = soup.select('#info > a:nth-of-type(1)'),
+        view = soup.select('#link-report > div:nth-of-type(1) > div')
+        data = {
+            'title': title,
+            #'author': list(authors.text),
+            'view' : view
+        }
+        print(data)
+        f = open(".\ccc.txt", "a+",encoding='utf-8')
+        f.write(str(data))
+        picname = str(title)
+        urldn = img[0].get('src')
+        dnpic(picname,urldn)
+        f.close()
+
+def geturl(url):
+    urls = []
+    wbdata = requests.get(url,headers=headers)
+    soup = BeautifulSoup(wbdata.text, 'lxml')
+    for link in soup.select('#subject_list > ul > li > div.info > h2 > a'):
+            urls.append(link.get('href'))
+    return urls
+
+def callbackfunc(blocknum, blocksize, totalsize):
+    '''回调函数
+  @blocknum: 已经下载的数据块
+  @blocksize: 数据块的大小
+  @totalsize: 远程文件的大小
+  '''
+    percent = 100.0 * blocknum * blocksize / totalsize
+    if percent > 100:
+        percent = 100
+    print ("%.2f%%"% percent)
+
+def dnpic(title,url):
+    local = 'g:\\pypic\\pic' + title + '.jpg'
+    urllib.request.urlretrieve(url, local, callbackfunc)
+
+getpinlun(url)
+
+
+
+
