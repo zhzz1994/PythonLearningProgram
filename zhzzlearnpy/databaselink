@@ -1,0 +1,7 @@
+import pymysql
+
+db = pymysql.connect(host = 'localhost',user = 'root',password = '1094835165', db = 'zhzz')
+cursor = db.cursor()
+cursor.execute('select * from t1')
+data = cursor.fetchall()
+print(data)
