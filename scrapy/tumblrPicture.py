@@ -23,12 +23,11 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 List = []
 
-<<<<<<< HEAD
+
 posterNameList = ['']
-=======
-posterNameList = ['madam-w','liliko99','hatsuneyuko','mysexpet']
+
+posterNameList = ['']
 #'cnllm'
->>>>>>> 1a873b06183948a12a0cac1fed684583f0516d9a
 # 'maydaylxy' 'miaotutu' 'yinminwansui' 'hitagiplus' 'slz841126' 'fkfkcf11' 'lofsj'
 #'babadexiaom' 'hentaiying' ‘kitmen83’ 'dazai-ying' 'luoliuuu' 'anapapapa'
 # 'binbin0505' 'zhling1994' 'kotori950422' 'shuimuqingfeng' 'liniang520','gluteipaffuto',
@@ -482,14 +481,14 @@ def printAndLog(photosetsList,photosheetsList,videosList):
     logWrite('videosList')
     logWrite(len(videosList))
 
-<<<<<<< HEAD
+
 def main():
     tumblrDownload(posterNameList,local)
 
 if __name__ == '__main__':
     main()
-=======
+
 tumblrDownload(posterNameList,local)
 
 
->>>>>>> 1a873b06183948a12a0cac1fed684583f0516d9a
+
